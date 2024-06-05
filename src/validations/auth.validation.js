@@ -1,0 +1,3 @@
+registerValidation,
+loginValidation,
+otpValidation
