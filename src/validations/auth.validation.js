@@ -51,7 +51,6 @@ export const loginValidation = (user) => {
             return {
                 okay : false,
                 messeges : error.details[0].message,
-                status : 400,
                 value : ""
             };
         };
@@ -59,7 +58,6 @@ export const loginValidation = (user) => {
         return {
             okay : true,
             messeges : "",
-            status : 200,
             value 
         }; 
     } catch (error) {
@@ -67,7 +65,6 @@ export const loginValidation = (user) => {
         return {
             okay : false,
             messeges : error.message,
-            status : 500,
             value : ""
         };
     };

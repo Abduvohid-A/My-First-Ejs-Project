@@ -1,3 +1,4 @@
+import otpGenerator from "otp-generator";
 import User from "../models/user.model.js";
 
 
@@ -40,18 +41,16 @@ export const loginService = async (user) => {
     try {
       const existUser = await User.fondOne({username: user.username});
   
-      if (existUser) {
+      if (!existUser) {
         return {
           ok: false,
           values: "",
-          message: "User is already exist",
-          status: 400
+          message: "Send Otp"
         };
       };
-  
-      existUser = new User(user);
-  
-      const saveUser = await existUser.save();
+      const params = { specialChars: false, upperCaseAlphabets: false };
+      const generateOtp = await otpGenerator.generate(6, params);
+      
   
       return {
           ok: true,

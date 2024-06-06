@@ -23,7 +23,7 @@ export const registerController = async(req, res) => {
 
         const {ok, values, status, message } = await registerService(value);
 
-        return res.render('register', {article : 'Register Page', message : messeges});
+        return res.render('register', {article : 'Register Page', message});
 
     } catch (error) {
         console.log(error);
@@ -35,20 +35,19 @@ export const loginController = async(req, res) => {
     try {
         const { body } = req;
 
-        const { okay, value, messeges, statuss } = await loginValidation(body);
+        const { okay, value, messeges } = await loginValidation(body);
 
         if (!okay) {
-            return res.status(statuss).json({messege : messeges});
+            return res.render('login', { article : "Login Page", message : messeges});
         };
 
-        const {ok, values, status, message } = await loginService(value);
+        const {ok, values, message } = await loginService(value);
 
-        if (!ok) return res.status(status).json({message});
-        else return res.status(status).json(values);
+        return res.render('login', { article : "Login Page", message});
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({message : error.message});
+        return res.render('login', { article : "Login Page", message : error.message});
     };
 };
 
