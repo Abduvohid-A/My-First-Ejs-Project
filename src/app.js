@@ -2,6 +2,7 @@ import express from "express";
 import expressLayout from "express-ejs-layouts";
 import path from "node:path";
 import { connectDB } from "./config/db.js";
+import mainRouter from "./routes/auth.routes.js";
 
 export const app = express();
 connectDB();
@@ -14,7 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded( {extended : true }));
 
-// app.use("/", mainRouter);
+app.use("/", mainRouter);
 app.get("/", (req, res) => {
     res.render('index', { article : 'Home Page' });
 });
