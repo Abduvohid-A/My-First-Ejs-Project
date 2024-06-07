@@ -23,6 +23,8 @@ export const registerController = async(req, res) => {
 
         const {ok, values, status, message } = await registerService(value);
 
+        if (ok) return res.render('otp', {article : 'Otp Page', message: ""});
+
         return res.render('register', {article : 'Register Page', message});
 
     } catch (error) {
@@ -55,13 +57,13 @@ export const otpController = async(req, res) => {
     try {
         const { body } = req;
 
-        const { okay, value, messeges, statuss } = await otpValidation(body);
+        const { okay, value, messeges} = await otpValidation(body);
 
         if (!okay) {
-            return res.status(statuss).json({messege : messeges});
+            return res.json({messege : messeges});
         };
 
-        const {ok, values, status, message } = await otpService(value);
+        const {ok, values, message } = await otpService(value);
 
         if (!ok) return res.status(status).json({message});
         else return res.status(status).json(values);
@@ -74,7 +76,7 @@ export const otpController = async(req, res) => {
 
 export const logoutController = async(req, res) => {
     try {
-        const {ok, values, status, message } = await logoutService();
+        const {ok, values, message } = await logoutService();
 
         if (!ok) return res.status(status).json({message});
         else return res.status(status).json(values);
