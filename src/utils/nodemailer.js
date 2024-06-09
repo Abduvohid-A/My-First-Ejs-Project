@@ -5,12 +5,12 @@ const { NODEMAILER_USER, NODEMAILER_PASS, NODEMAILER_HOST } = configuration.node
 
 
 const transporter = nodemailer.createTransport({
-    host: NODEMAILER_HOST || 'smtp.ethereal.email', 
-    port: 587,
-    secure: false, 
+    host: NODEMAILER_HOST, 
+    port: 465,
+    secure: true, 
     auth: {
-      user: NODEMAILER_USER || 'abduvohidabdurahimov1@gmail.com',
-      pass: NODEMAILER_PASS || 'dysi rcnh cytg lltm'
+      user: NODEMAILER_USER,
+      pass: NODEMAILER_PASS
     },
 });
   
@@ -18,7 +18,6 @@ const transporter = nodemailer.createTransport({
 export async function main(email, otp) {
   try {
       const info = await transporter.sendMail({
-          from: NODEMAILER_USER,
           to: email,
           subject: 'Verification',
           html: `<h1>Your One Time Password: ${otp}</h1>`,

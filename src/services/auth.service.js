@@ -1,6 +1,8 @@
 import otpGenerator from "otp-generator";
 import User from "../models/user.model.js";
 import { main } from "../utils/nodemailer.js";
+import configuration from "../config/configuration.js";
+import { createToken } from "../utils/token.js";
 
 export const registerService = async (user) => {
   try {
@@ -27,18 +29,35 @@ export const registerService = async (user) => {
         message: "Email jo'natilmadi",
         status: 400,
       };
-    };
+    }
+
+    const { ACCESS_KEY, ACCESS_TIME_OTP } = configuration.token;
+
+    const token = await createToken({ email: user.email }, ACCESS_KEY, {
+      expiresIn: ACCESS_TIME_OTP,
+      algorithm: "RS256",
+    });
+
+    if (!token) {
+      return {
+        ok: false,
+        values: "",
+        message: "Token Yarata olmadi",
+        status: 500,
+      };
+    }
+
     const newUser = new User(user);
 
     const saveUser = await newUser.save();
 
     return {
       ok: true,
+      token,
       values: saveUser,
       message: "Successfully Created",
       status: 201,
     };
-    
   } catch (error) {
     console.log(error);
     return {

@@ -69,11 +69,10 @@ export const loginValidation = (user) => {
   }
 };
 
-export const otpValidation = (user) => {
+export const otpValidation = (otp) => {
   try {
     const schema = Joi.object({
-      email: Joi.string().email().required(),
-      password: Joi.string().min(4).max(15).required(),
+      otp : Joi.string().length(6).required()
     });
 
     const { error, value } = schema.validate(user);
@@ -82,7 +81,6 @@ export const otpValidation = (user) => {
       return {
         okay: false,
         messeges: error.details[0].message,
-        status: 400,
         value: "",
       };
     }
@@ -90,7 +88,6 @@ export const otpValidation = (user) => {
     return {
       okay: true,
       messeges: "",
-      status: 200,
       value,
     };
   } catch (error) {
@@ -98,8 +95,7 @@ export const otpValidation = (user) => {
     return {
       okay: false,
       messeges: error.message,
-      status: 500,
       value: "",
     };
-  }
+  };
 };
