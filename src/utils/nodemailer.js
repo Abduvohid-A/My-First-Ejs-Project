@@ -30,5 +30,5 @@ export async function main(email, otp) {
   } catch (error) {
       console.error(error);
       return false;
-  }
-}
+  };
+};

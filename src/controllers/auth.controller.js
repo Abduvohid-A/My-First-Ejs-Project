@@ -8,7 +8,7 @@ import {
   loginService,
   otpService,
   logoutService,
-} from "../services/auth.service.js";
+} from "../services/mongoose/auth.service.js";
 
 export const registerController = async (req, res) => {
   try {
@@ -23,9 +23,9 @@ export const registerController = async (req, res) => {
       });
     }
 
-    const { ok, token, values, status, message } = await registerService(value);
+    const { ok, values, status, message } = await registerService(value);
 
-    res.cookie("access_token", token, {
+    res.cookie("access_token", values, {
       maxAge: 60000,
       httpOnly: true,
     });
