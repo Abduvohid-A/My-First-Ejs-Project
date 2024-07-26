@@ -8,7 +8,7 @@ import {
   loginService,
   otpService,
   logoutService,
-} from "../services/mongoose/auth.service.js";
+} from "../services/auth.service.js";
 
 export const registerController = async (req, res) => {
   try {

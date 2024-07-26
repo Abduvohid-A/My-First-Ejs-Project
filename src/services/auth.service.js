@@ -1,8 +1,8 @@
 import otpGenerator from "otp-generator";
 import User from "../models/user.model.js";
-import { main } from "../../utils/nodemailer.js";
-import configuration from "../../config/configuration.js";
-import { createToken } from "../../utils/token.js";
+import { main } from "../utils/nodemailer.js";
+import configuration from "../config/configuration.js";
+import { createToken } from "../utils/token.js";
 
 export const registerService = async (user) => {
   try {
